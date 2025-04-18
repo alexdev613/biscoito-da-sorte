@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, Text, Image, StyleSheet, Platform } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 
 export default function App() {
   const [img, setImg] = useState(require("../../assets/images/biscoito.png"));
@@ -13,13 +13,24 @@ export default function App() {
 
       <Text style={styles.textoFrase}>" Olá mundo, Esta é minha primeira frase do biscoito. "</Text>
 
+      <TouchableOpacity style={styles.botao} onPress={ () => alert("TESTE!")}>
+        <View style={styles.btnArea}>
+          <Text style={styles.btnTexto}>Quebrar biscoito</Text>
+        </View>
+      </TouchableOpacity>
+      
+      <TouchableOpacity style={[styles.botao, { marginTop: 15, borderColor: "#121212" } ]} onPress={ () => alert("TESTE!")}>
+        <View style={styles.btnArea}>
+          <Text style={[styles.btnTexto, { color: "#121212"} ]}>Reiniciar biscoito</Text>
+        </View>
+      </TouchableOpacity>
+
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 30,
     flex: 1,
     justifyContent: "center",
     alignItems: "center"
@@ -31,6 +42,25 @@ const styles = StyleSheet.create({
   textoFrase: {
     fontSize: 20,
     color: "#dd7b22",
-    margin: 30
+    margin: 30,
+    fontStyle: "italic",
+    textAlign: "center"
+  },
+  botao: {
+    width: 230,
+    height: 50,
+    borderColor: "#dd7b22",
+    borderWidth: 2,
+    borderRadius: 25
+  },
+  btnArea: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  btnTexto: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#dd7b22"
   }
 });
