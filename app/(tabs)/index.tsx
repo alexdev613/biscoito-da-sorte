@@ -1,13 +1,43 @@
 import { useState, useRef } from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, Animated } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  Animated,
+  Vibration
+} from 'react-native';
 import { fortuneMessages } from '../../data/fortuneMessages';
+import { Audio } from "expo-av";
 
 export default function App() {
   const [img, setImg] = useState(require("../../assets/images/biscoito.png"));
-  const [textoFrase, setTextoFrase] = useState("Testando a frase do biscoito");
+  const [textoFrase, setTextoFrase] = useState("");
+
+  const [podeQuebrar, setPodeQuebrar] = useState(true);
 
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const bounceAnim = useRef(new Animated.Value(1)).current;
+
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  async function playSound() {
+    try {
+      const { sound } = await Audio.Sound.createAsync(
+        require("../../assets/sounds/quebra-biscoito.mp3"),
+        { shouldPlay: true }
+      );
+      // descarrega o som depois que tocar para liberar memória
+      sound.setOnPlaybackStatusUpdate((status) => {
+        if (status.isLoaded && status.didJustFinish) {
+          sound.unloadAsync();
+        }
+      });
+    } catch (error) {
+      console.error("Erro ao tocar som:", error);
+    }
+  }
 
   function animateBounce() {
     bounceAnim.setValue(1);
@@ -31,7 +61,12 @@ export default function App() {
   }
 
   function quebraBiscoito() {
+    if (!podeQuebrar) return; // impede que continue se já está em processo
+    setPodeQuebrar(false);    // bloqueia múltiplos toques
+
+    playSound();
     animateBounce();
+    Vibration.vibrate()
 
     let numeroAleatorio = Math.floor(Math.random() * fortuneMessages.length);
 
@@ -46,15 +81,26 @@ export default function App() {
       useNativeDriver: true,
     }).start();
 
-    setTimeout(() => {
+    // Cancela timeout anterior, se existir
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
+    // Cria novo timeout e guarda referência
+    timeoutRef.current = setTimeout(() => {
       reiniciar();
     }, 18000);
 
   }
 
   function reiniciar() {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current); // Cancela ao reiniciar manualmente também
+    }
+
     setImg(require("../../assets/images/biscoito.png"));
     setTextoFrase("");
+    setPodeQuebrar(true);
   }
 
   return (
@@ -67,16 +113,20 @@ export default function App() {
       <Animated.Text style={[styles.textoFrase, { opacity: fadeAnim }]}>{textoFrase}</Animated.Text>
 
       <Animated.View style={{ transform: [{ scale: bounceAnim }] }}>
-        <TouchableOpacity style={styles.botao} onPress={quebraBiscoito}>
+        <TouchableOpacity
+          style={styles.botao}
+          onPress={quebraBiscoito}
+          disabled={!podeQuebrar}
+        >
           <View style={styles.btnArea}>
             <Text style={styles.btnTexto}>Quebrar biscoito</Text>
           </View>
         </TouchableOpacity>
       </Animated.View>
 
-      <TouchableOpacity style={[styles.botao, { marginTop: 15, borderColor: "#121212" }]} onPress={reiniciar}>
+      <TouchableOpacity style={[styles.botao, { marginTop: 15 }]} onPress={reiniciar}>
         <View style={styles.btnArea}>
-          <Text style={[styles.btnTexto, { color: "#121212" }]}>Reiniciar biscoito</Text>
+          <Text style={styles.btnTexto}>Reiniciar biscoito</Text>
         </View>
       </TouchableOpacity>
 
