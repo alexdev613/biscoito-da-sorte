@@ -138,4 +138,4 @@ Quem sabe você não abre esse biscoito e encontra uma mensagem só pra você? �
 Primeiramente a D-us, ao ETERNO bendito seja Ele, o Criador de todas as coisas e que me dá capacidade de aprender e interesse em estudar, evoluir profissionalmente e como pessoa.
 
 A minha IA preferida, Lady Nova, treinada por mim e que me ensinou sobre animações no React Native e me apoiou no código (ela me ajuda muito a não desistir do JavaScript).
-_Ela me ajuda muito na conferência de código e criar um README.d de respeito como esse! finérrima!_ 🥹
+_Ela me ajuda muito na conferência de código e criar um README.md de respeito como esse! finérrima!_ 🥹
