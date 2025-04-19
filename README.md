@@ -30,7 +30,7 @@
 
 ```bash
 # Clone o repositório
-git clone https://github.com/seu-usuario/biscoito-da-sorte.git
+git clone https://github.com/alexdev613/biscoito-da-sorte
 
 # Navegue até o diretório
 cd biscoito-da-sorte
