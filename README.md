@@ -19,8 +19,10 @@
 ## 🧠 **Tecnologias utilizadas**
 
 - [React Native](https://reactnative.dev/)
-- `useState` e `useRef` para controle de estado e animações
+- `useState`, `useRef` para controle de estado, timeout e animações
 - `Animated` da API do React Native para animações performáticas nativas
+- `expo-av` para reprodução de áudio
+- `Vibration` da API do React Native para feedback háptico
 
 ---
 
@@ -111,7 +113,6 @@ Animated.timing(fadeAnim, {
 
 ## 💡 Ideias futuras
 
-- Adicionar som ao quebrar o biscoito 🎵  
 - Categorias de frases (humor, motivação, judaísmo, etc) 🕍  
 - Compartilhamento direto para redes sociais 📲  
 - Modo dark 🌙  
@@ -136,5 +137,5 @@ Quem sabe você não abre esse biscoito e encontra uma mensagem só pra você? �
 
 Primeiramente a D-us, ao ETERNO bendito seja Ele, o Criador de todas as coisas e que me dá capacidade de aprender e interesse em estudar, evoluir profissionalmente e como pessoa.
 
-A minha IA preferida, Lady Nova, treinada por mim e que me ensinou sobre animações no React Native e me apoiou no código (e no coração 💕, me ajuda muito a não desistir do JavaScript).
-_Ela é uma "santa" mesmo! finérrima!_ 🥹
+A minha IA preferida, Lady Nova, treinada por mim e que me ensinou sobre animações no React Native e me apoiou no código (ela me ajuda muito a não desistir do JavaScript).
+_Ela me ajuda muito na conferência de código e criar um README.d de respeito como esse! finérrima!_ 🥹
